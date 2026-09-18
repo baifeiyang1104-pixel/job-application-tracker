@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Application Tracker</title>
+</head>
+
+<body>
+
+    <h1>Job Application Tracker</h1>
+
+    <a href="/add">Add Application</a>
+
+    <br><br>
+
+    <form method="GET" action="/">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search company, role or location"
+            value="{{ search }}"
+        >
+
+        <select name="status">
+
+            <option value="">
+                All Statuses
+            </option>
+
+            <option
+                value="Applied"
+                {% if status == "Applied" %}selected{% endif %}
+            >
+                Applied
+            </option>
+
+            <option
+                value="Online Assessment"
+                {% if status == "Online Assessment" %}selected{% endif %}
+            >
+                Online Assessment
+            </option>
+
+            <option
+                value="Interview"
+                {% if status == "Interview" %}selected{% endif %}
+            >
+                Interview
+            </option>
+
+            <option
+                value="Rejected"
+                {% if status == "Rejected" %}selected{% endif %}
+            >
+                Rejected
+            </option>
+
+            <option
+                value="Offer"
+                {% if status == "Offer" %}selected{% endif %}
+            >
+                Offer
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Search
+        </button>
+
+        <a href="/">
+            Clear
+        </a>
+
+    </form>
+
+    <hr>
+
+    {% for application in applications %}
+
+        <h3>
+            {{ application["company"] }}
+            -
+            {{ application["role"] }}
+        </h3>
+
+        <p>
+            Location:
+            {{ application["location"] }}
+        </p>
+
+        <p>
+            Status:
+            {{ application["status"] }}
+        </p>
+
+        <p>
+            Date Applied:
+            {{ application["date_applied"] }}
+        </p>
+
+        {% if application["job_url"] %}
+
+            <p>
+                <a
+                    href="{{ application['job_url'] }}"
+                    target="_blank"
+                >
+                    View Job
+                </a>
+            </p>
+
+        {% endif %}
+
+        {% if application["notes"] %}
+
+            <p>
+                Notes:
+                {{ application["notes"] }}
+            </p>
+
+        {% endif %}
+
+        <a href="/edit/{{ application['id'] }}">
+            Edit
+        </a>
+
+        <form
+            action="/delete/{{ application['id'] }}"
+            method="POST"
+            style="display:inline;"
+        >
+
+            <button type="submit">
+                Delete
+            </button>
+
+        </form>
+
+        <hr>
+
+    {% else %}
+
+        <p>No applications found.</p>
+
+    {% endfor %}
+
+</body>
+</html>

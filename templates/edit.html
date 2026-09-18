@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Application</title>
+</head>
+
+<body>
+
+    <h1>Edit Job Application</h1>
+
+    <form method="POST">
+
+        <label>Company</label>
+        <br>
+        <input
+            type="text"
+            name="company"
+            value="{{ application['company'] }}"
+            required
+        >
+
+        <br><br>
+
+        <label>Role</label>
+        <br>
+        <input
+            type="text"
+            name="role"
+            value="{{ application['role'] }}"
+            required
+        >
+
+        <br><br>
+
+        <label>Location</label>
+        <br>
+        <input
+            type="text"
+            name="location"
+            value="{{ application['location'] }}"
+        >
+
+        <br><br>
+
+        <label>Date Applied</label>
+        <br>
+        <input
+            type="date"
+            name="date_applied"
+            value="{{ application['date_applied'] }}"
+        >
+
+        <br><br>
+
+        <label>Status</label>
+        <br>
+
+        <select name="status">
+
+            <option
+                {% if application["status"] == "Applied" %}
+                    selected
+                {% endif %}
+            >
+                Applied
+            </option>
+
+            <option
+                {% if application["status"] == "Online Assessment" %}
+                    selected
+                {% endif %}
+            >
+                Online Assessment
+            </option>
+
+            <option
+                {% if application["status"] == "Interview" %}
+                    selected
+                {% endif %}
+            >
+                Interview
+            </option>
+
+            <option
+                {% if application["status"] == "Rejected" %}
+                    selected
+                {% endif %}
+            >
+                Rejected
+            </option>
+
+            <option
+                {% if application["status"] == "Offer" %}
+                    selected
+                {% endif %}
+            >
+                Offer
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>Job URL</label>
+        <br>
+        <input
+            type="text"
+            name="job_url"
+            value="{{ application['job_url'] }}"
+        >
+
+        <br><br>
+
+        <label>Notes</label>
+        <br>
+
+        <textarea name="notes">{{ application["notes"] }}</textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Back</a>
+
+</body>
+</html>

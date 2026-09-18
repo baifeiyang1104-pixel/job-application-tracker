@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Application</title>
+</head>
+
+<body>
+
+    <h1>Add Job Application</h1>
+
+    <form method="POST">
+
+        <label>Company</label>
+        <br>
+        <input type="text" name="company" required>
+
+        <br><br>
+
+        <label>Role</label>
+        <br>
+        <input type="text" name="role" required>
+
+        <br><br>
+
+        <label>Location</label>
+        <br>
+        <input type="text" name="location">
+
+        <br><br>
+
+        <label>Date Applied</label>
+        <br>
+        <input type="date" name="date_applied">
+
+        <br><br>
+
+        <label>Status</label>
+        <br>
+
+        <select name="status">
+
+            <option>Applied</option>
+            <option>Online Assessment</option>
+            <option>Interview</option>
+            <option>Rejected</option>
+            <option>Offer</option>
+
+        </select>
+
+        <br><br>
+
+        <label>Job URL</label>
+        <br>
+        <input type="text" name="job_url">
+
+        <br><br>
+
+        <label>Notes</label>
+        <br>
+        <textarea name="notes"></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Save Application
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Back</a>
+
+</body>
+</html>
