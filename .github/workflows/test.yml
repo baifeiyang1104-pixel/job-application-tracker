@@ -1,48 +1,20 @@
-name: Run Tests
+import pytest
+from app import app, init_db
 
-on:
-  push:
-  pull_request:
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+@pytest.fixture
+def client():
+    app.config["TESTING"] = True
 
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_DB: jobtracker
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    # Make sure the database table exists
+    init_db()
 
-    env:
-      DB_HOST: localhost
-      DB_NAME: jobtracker
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_PORT: 5432
+    with app.test_client() as client:
+        yield client
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+def test_home_page(client):
+    response = client.get("/")
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run tests
-        run: python -m pytest
+    assert response.status_code == 200
+    assert b"Job Application Tracker" in response.data
